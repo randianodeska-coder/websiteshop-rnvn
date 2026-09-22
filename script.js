@@ -491,7 +491,7 @@ $('#checkout-btn')?.addEventListener('click', () => {
   const items = cart.map(i => `• ${i.name} (${i.size}) x${i.qty} = ${fmtPrice(i.price * i.qty)}`).join('%0A');
   const total = fmtPrice(cart.reduce((s, i) => s + i.price * i.qty, 0));
   const msg = `Halo RNVN! Saya mau order:%0A%0A${items}%0A%0A*Total: ${total}*%0A%0AMohon konfirmasi ketersediaan dan info pengiriman. Terima kasih!`;
-  window.open(`https://wa.me/6281234567890?text=${msg}`, '_blank');
+  window.open(`https://wa.me/6208563122123?text=${msg}`, '_blank');
 });
 
 // Init badge on load
@@ -634,7 +634,7 @@ orderForm?.addEventListener('submit', e => {
     formSuccess.style.display = 'flex';
 
     const msg = `Halo RNVN! Saya ingin order:%0A%0ANama: ${name}%0ATelp: ${phone}%0AProduk: ${product}%0AUkuran: ${size}%0AJumlah: ${qty}%0AAlamat: ${address}%0ACatatan: ${notes || '-'}`;
-    setTimeout(() => window.open(`https://wa.me/6281234567890?text=${msg}`, '_blank'), 1200);
+    setTimeout(() => window.open(`https://wa.me/6208563122123?text=${msg}`, '_blank'), 1200);
   }, 1400);
 });
 
