@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RNVN Official — Premium Streetwear Indonesia</title>
+  <meta name="description"
+    content="RNVN Official adalah brand streetwear premium Indonesia. Temukan koleksi eksklusif dengan desain bold dan bahan premium berkualitas tinggi. Think Beyond Limits." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ══ LOADER ══ -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <img src="logo rnvn vector.png" alt="RNVN Logo" class="loader-logo" />
+      <p class="loader-text">RNVN OFFICIAL</p>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CURSOR ══ -->
+  <div id="cursor" class="cursor"></div>
+  <div id="cursor-follower" class="cursor-follower"></div>
+
+  <!-- ══════════════════════════════════════════════════
+       CART SIDEBAR
+  ══════════════════════════════════════════════════ -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+        </svg>
+        <h3>Keranjang Belanja</h3>
+        <span class="cart-count-label" id="cart-count-label">0 item</span>
+      </div>
+      <button class="cart-close" id="cart-close" aria-label="Tutup keranjang">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="cart-body" id="cart-body">
+      <!-- Empty State -->
+      <div class="cart-empty" id="cart-empty">
+        <div class="cart-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+          </svg>
+        </div>
+        <p>Keranjang masih kosong</p>
+        <span>Tambahkan produk favoritmu!</span>
+        <button class="btn btn-primary btn-sm" onclick="closeCart()">Mulai Belanja</button>
+      </div>
+      <!-- Items will be injected here -->
+      <div class="cart-items" id="cart-items"></div>
+    </div>
+
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-summary">
+        <div class="cart-summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">Rp 0</span>
+        </div>
+        <div class="cart-summary-row">
+          <span>Ongkir</span>
+          <span class="cart-ongkir">Dihitung saat checkout</span>
+        </div>
+        <div class="cart-summary-row total">
+          <span>Total</span>
+          <span id="cart-total">Rp 0</span>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-full" id="checkout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+        </svg>
+        <span>Checkout via WhatsApp</span>
+      </button>
+      <button class="btn btn-ghost btn-full" onclick="closeCart()">Lanjut Belanja</button>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════════ -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img src="logo rnvn vector.png" alt="RNVN" class="nav-logo-img" />
+        <span class="nav-brand">RNVN</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#collection" class="nav-link">Collection</a></li>
+        <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#contact" class="nav-link">Kontak</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-cart-btn" id="nav-cart-btn" aria-label="Buka keranjang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+          </svg>
+          <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════ -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal">
+        <span class="dot"></span>
+        <span>Est. 2026 — Indonesia</span>
+        <span class="dot"></span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-line reveal" style="transition-delay:0.1s">RARE</span>
+        <span class="hero-line italic reveal" style="transition-delay:0.25s">NEW</span>
+        <span class="hero-line reveal" style="transition-delay:0.4s">VISION NATION</span>
+      </h1>
+      <p class="hero-subtitle reveal" style="transition-delay:0.55s">
+        Streetwear premium yang lahir dari keberanian.<br />
+        Bukan sekadar pakaian — ini adalah pernyataan.
+      </p>
+      <div class="hero-cta reveal" style="transition-delay:0.65s">
+        <a href="#collection" class="btn btn-primary btn-hero">
+          <span>Explore Collection</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <button class="btn btn-ghost" onclick="document.getElementById('nav-cart-btn').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+          </svg>
+          <span>Keranjang</span>
+        </button>
+      </div>
+      <div class="hero-stats reveal" style="transition-delay:0.75s">
+        <div class="stat">
+          <span class="stat-num" data-target="100">0</span><span>+</span>
+          <span class="stat-label">Customers</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="1">0</span>
+          <span class="stat-label">Exclusive Design</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="100">0</span><span>%</span>
+          <span class="stat-label">Premium</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Image Slider -->
+    <div class="hero-slider-wrap reveal-right">
+      <div class="hero-slider" id="hero-slider">
+        <div class="hero-slide active">
+          <img src="model3.png" alt="RNVN Look 1" />
+        </div>
+        <div class="hero-slide">
+          <img src="back baju rnvn001.png" alt="RNVN Look 2" />
+        </div>
+        <div class="hero-slide">
+          <img src="depan baju rnvn001.png" alt="RNVN Look 3" />
+        </div>
+        <div class="hero-slide">
+          <img src="model4.png" alt="RNVN Look 4" />
+        </div>
+        <div class="hero-slide">
+          <img src="detailvoidwear.png" alt="RNVN Look 5" />
+        </div>
+      </div>
+      <div class="hero-slider-nav">
+        <button class="hs-prev" id="hs-prev" aria-label="Prev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+        <div class="hero-slider-dots" id="hs-dots"></div>
+        <button class="hs-next" id="hs-next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Marquee -->
+      <div class="hero-marquee">
+        <div class="marquee-track">
+          <span>RNVN OFFICIAL</span><span class="sep">✦</span>
+          <span>THINK BEYOND LIMITS</span><span class="sep">✦</span>
+          <span>PREMIUM STREETWEAR</span><span class="sep">✦</span>
+          <span>BOXY FIT</span><span class="sep">✦</span>
+          <span>COTTON 24S</span><span class="sep">✦</span>
+          <span>RNVN OFFICIAL</span><span class="sep">✦</span>
+          <span>THINK BEYOND LIMITS</span><span class="sep">✦</span>
+          <span>PREMIUM STREETWEAR</span><span class="sep">✦</span>
+          <span>BOXY FIT</span><span class="sep">✦</span>
+          <span>COTTON 24S</span><span class="sep">✦</span>
+        </div>
+      </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════════════════ -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <!-- About Image Slider -->
+          <div class="about-slider-wrap reveal-left">
+            <div class="about-slider" id="about-slider">
+              <div class="about-slide active"><img src="voidwear2 - Salin.png" alt="RNVN Style" /></div>
+              <div class="about-slide"><img src="voidwear2.png" alt="RNVN Model" /></div>
+            </div>
+            <button class="about-slider-btn prev" id="as-prev">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button class="about-slider-btn next" id="as-next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+            <div class="about-slider-dots" id="as-dots"></div>
+            <div class="about-badge reveal-left delay-200">
+              <span class="badge-year">NEW</span>
+              <span class="badge-text">DROPS</span>
+            </div>
+          </div>
+          <div class="about-quote reveal-left delay-400">
+            <svg viewBox="0 0 32 24" fill="currentColor">
+              <path
+                d="M0 24V14.545C0 10.788.97 7.576 2.909 4.909 4.848 2.182 7.697.606 11.394 0L12.97 2.909c-2.182.606-3.97 1.818-5.364 3.636-1.394 1.757-2.091 3.636-2.091 5.637H10.91V24H0zm16.97 0V14.545c0-3.757.97-6.97 2.909-9.636C21.818 2.182 24.667.606 28.364 0L30 2.909c-2.242.606-4.03 1.818-5.364 3.636-1.394 1.757-2.091 3.636-2.091 5.637H28.97V24H16.97z" />
+            </svg>
+            <p>Kami tidak hanya menjual pakaian. Kami menjual keberanian untuk tampil beda.</p>
+          </div>
+        </div>
+        <div class="about-content">
+          <div class="section-tag reveal">Tentang Kami</div>
+          <h2 class="section-title reveal">Bukan Sekadar<br /><em>Pakaian Biasa</em></h2>
+          <p class="about-text reveal">RNVN (RARE NEW VISION NATION) adalah brand clothing yang dibangun dengan gagasan bahwa gaya berpakaian bukan sekadar penampilan,  Kami hadir
+            sebagai brand streetwear premium yang percaya bahwa fashion adalah ekspresi jiwa — bukan sekadar tren yang
+            datang dan pergi.</p>
+          <p class="about-text reveal delay-100">Setiap produk RNVN dirancang dengan detail yang cermat, menggunakan
+            bahan premium <strong>100% Cotton Combed 24S</strong> yang nyaman, adem, dan tahan lama. Dari desain grafis
+            yang bold hingga potongan boxy fit yang modern.</p>
+          <div class="about-features reveal delay-200">
+            <div class="feature-item">
+              <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg></div>
+              <div>
+                <h4>Premium Material</h4>
+                <p>100% Cotton Combed 24S</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" />
+                  <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
+                </svg></div>
+              <div>
+                <h4>Boxy Fit</h4>
+                <p>Potongan modern & nyaman</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                </svg></div>
+              <div>
+                <h4>Made with Passion</h4>
+                <p>Dibuat penuh detail</p>
+              </div>
+            </div>
+          </div>
+          <a href="#collection" class="btn btn-primary reveal delay-300">
+            <span>Lihat Koleksi</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       COLLECTION — WITH PRODUCT SLIDERS & CART
+  ══════════════════════════════════════════════════ -->
+  <section id="collection" class="collection section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Koleksi Terbaru</div>
+        <h2 class="section-title">Our <em>Signature</em><br />Collection</h2>
+        <p class="section-desc">Setiap piece adalah karya seni yang bisa kamu pakai setiap hari.</p>
+      </div>
+
+      <!-- Filter kategori dihapus karena fokus ke 1 produk -->
+
+      <div class="products-grid" id="products-grid">
+
+        <!-- PRODUCT 3: Void Wear -->
+        <div class="product-card reveal delay-200" data-category="tee" data-id="void-wear" data-name="Void Wear Tee"
+        data-price="199000" data-img="voidweaar.png">
+        <div class="product-img-wrap">
+          <div class="pslider" data-product="void-wear">
+            <div class="pslide active"><img src="voidwear2.png" alt="Void Wear" loading="lazy" /></div>
+            <div class="pslide"><img src="voidwear2 - Salin.png" alt="Void Detail" loading="lazy" /></div>
+            <div class="pslide"><img src="detailvoidwear - Salin.png" alt="Void Detail 2" loading="lazy" /></div>
+          </div>
+          <button class="pslide-btn prev" aria-label="Prev photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="pslide-btn next" aria-label="Next photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+          <div class="pslide-dots"></div>
+          <div class="product-wishlist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+            </svg>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta">
+            <span class="product-cat">rnvn 001 Boxy Tee</span>
+            <div style="display:flex; gap:6px;">
+              <span style="font-size:10px; font-weight:700; background:var(--accent); color:#fff; padding:3px 8px; border-radius:2px; letter-spacing:0.08em;">NEW</span>
+              <span style="font-size:10px; font-weight:700; background:var(--red); color:#fff; padding:3px 8px; border-radius:2px; letter-spacing:0.08em;">PRE-ORDER</span>
+            </div>
+          </div>
+          <h3 class="product-name">COSMIC VOID</h3>
+          <p class="product-desc">THE BEGINNING OF SOMETHING UNKNOWN</p>
+          <p style="font-size:11px; font-weight:600; color:var(--red); margin-top:4px; margin-bottom:8px;">🗓 Open PO: 15 Oktober - 30 Oktober 2026</p>
+          <div class="product-size-select">
+            <span>Ukuran:</span>
+            <div class="size-options">
+              <button class="size-opt active" data-size="M">M</button>
+              <button class="size-opt" data-size="L">L</button>
+              <button class="size-opt" data-size="XL">XL</button>
+            </div>
+          </div>
+          <div class="product-footer">
+            <div class="product-price-wrap">
+              <span class="product-price">Rp 119.000</span>
+            </div>
+            <button class="add-to-cart-btn" data-id="void-wear" data-name="Void Wear Tee" data-price="119000"
+              data-img="voidweaar.png">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+              </svg>
+              <span>Add to Cart</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /products-grid -->
+
+    <!-- Size Guide -->
+    <div class="size-guide-section reveal">
+      <div class="size-guide-content">
+        <div class="size-guide-text">
+          <h3>Panduan Ukuran</h3>
+          <p>Pastikan kamu memilih ukuran yang tepat untuk kenyamanan maksimal.</p>
+          <button class="btn btn-outline" id="size-toggle">Lihat Tabel Ukuran</button>
+        </div>
+        <div class="size-table-wrap" id="size-table" style="display:none;">
+          <img src="table ukuran.png" alt="Tabel Ukuran RNVN" class="size-table-img" loading="lazy" />
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       LOOKBOOK
+  ══════════════════════════════════════════════════ -->
+  <section class="lookbook section">
+    <div class="lookbook-header reveal">
+      <div class="section-tag">Lookbook</div>
+      <h2 class="section-title">Style <em>Inspo</em></h2>
+    </div>
+    <div class="lookbook-grid">
+      <div class="lookbook-item large reveal-left">
+        <img src="voidwear2.png" alt="RNVN Lookbook" loading="lazy" />
+        <div class="lookbook-overlay"><span>cosmic void</span></div>
+      </div>
+      <div class="lookbook-col">
+        <div class="lookbook-item reveal delay-100">
+          <img src="model4.png" alt="RNVN Style" loading="lazy" />
+          <div class="lookbook-overlay"><span>front view</span></div>
+        </div>
+        <div class="lookbook-item reveal delay-200">
+          <img src="model3.png" alt="RNVN Look" loading="lazy" />
+          <div class="lookbook-overlay"><span>back view</span></div>
+        </div>
+      </div>
+      <div class="lookbook-item tall reveal-right">
+        <img src="detailvoidwear - Salin.png" alt="RNVN Premium" loading="lazy" />
+        <div class="lookbook-overlay"><span>detail</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       FAQ
+  ══════════════════════════════════════════════════ -->
+  <section id="faq" class="faq section">
+    <div class="container">
+      <div class="faq-grid">
+        <div class="faq-visual reveal-left">
+          <div class="faq-img-wrap"><img src="voidwear2.png" alt="RNVN FAQ" loading="lazy" /></div>
+          <div class="faq-stat-card">
+            <div class="faq-stat"><span class="faq-stat-num">2000+</span><span>Happy Customers</span></div>
+            <div class="faq-stat"><span class="faq-stat-num">4.9★</span><span>Average Rating</span></div>
+          </div>
+        </div>
+        <div class="faq-content">
+          <div class="section-tag reveal">FAQ</div>
+          <h2 class="section-title reveal">Pertanyaan<br /><em>Yang Sering Ditanya</em></h2>
+          <div class="faq-list">
+            <div class="faq-item reveal">
+              <button class="faq-question" aria-expanded="false"><span>Berapa lama proses pengerjaan pesanan?</span>
+                <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg></div>
+              </button>
+              <div class="faq-answer">
+                <p>Karena menggunakan sistem Pre-Order (PO), proses pengerjaan pesanan biasanya membutuhkan waktu 14-20 hari kerja setelah masa PO ditutup.</p>
+              </div>
+            </div>
+            <div class="faq-item reveal delay-100">
+              <button class="faq-question" aria-expanded="false"><span>Apakah ada ukuran yang tersedia?</span>
+                <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg></div>
+              </button>
+              <div class="faq-answer">
+                <p>Kami menyediakan ukuran M, L, dan XL untuk produk COSMIC VOID. Untuk detail ukuran yang lebih spesifik, silakan lihat tabel ukuran di halaman koleksi.</p>
+              </div>
+            </div>
+            <div class="faq-item reveal delay-200">
+              <button class="faq-question" aria-expanded="false"><span>Bagaimana cara melakukan pemesanan?</span>
+                <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg></div>
+              </button>
+              <div class="faq-answer">
+                <p>Tambahkan produk ke keranjang, isi form pemesanan di bagian paling bawah web ini, lalu klik "Lihat Keranjang" dan "Checkout via WhatsApp". Tim kami akan merespons pesananmu.</p>
+              </div>
+            </div>
+            <div class="faq-item reveal delay-300">
+              <button class="faq-question" aria-expanded="false"><span>Apakah bahan yang digunakan benar-benar premium?</span>
+                <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg></div>
+              </button>
+              <div class="faq-answer">
+                <p>Tentu! Produk COSMIC VOID menggunakan bahan Cotton Combed berkualitas tinggi. Lembut, adem, tidak mudah kusut, dan tahan lama.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════════════ -->
+  <section id="contact" class="contact section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="section-tag reveal">Hubungi Kami</div>
+          <h2 class="section-title reveal">Ada yang bisa<br /><em>Kami Bantu?</em></h2>
+          <p class="reveal">Hubungi kami langsung via channel di bawah ini. Atau gunakan keranjang untuk pesan langsung!
+          </p>
+          <div class="contact-channels reveal delay-100">
+            <a href="https://wa.me/6208563122123?text=Halo%20RNVN!%20Saya%20tertarik%20dengan%20produk%20COSMIC%20VOID.%20Boleh%20saya%20tanya-tanya%20lebih%20lanjut%3F%20%F0%9F%91%8D" target="_blank" class="contact-channel whatsapp">
+              <div class="channel-icon"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg></div>
+              <div><strong>WhatsApp</strong><span>08563122123</span></div>
+            </a>
+            <a href="https://instagram.com/rnvn.official_" target="_blank" class="contact-channel instagram">
+              <div class="channel-icon"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg></div>
+              <div><strong>Instagram</strong><span>@rnvn.official_</span></div>
+            </a>
+            <a href="mailto:rnvnofficiall@gmail.com" class="contact-channel email">
+              <div class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg></div>
+              <div><strong>Email</strong><span>rnvnofficiall@gmail.com</span></div>
+            </a>
+            <a href="https://tiktok.com/@rnvn.official" target="_blank" class="contact-channel" style="background:var(--bg-3);border:1px solid var(--border);">
+              <div class="channel-icon"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.54V6.79a4.85 4.85 0 01-1.02-.1z"/>
+                </svg></div>
+              <div><strong>TikTok</strong><span>@rnvn.official</span></div>
+            </a>
+          </div>
+          <div class="contact-cta-cart reveal delay-200">
+            <p>Sudah pilih produk?</p>
+            <button class="btn btn-primary" id="open-cart-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+              </svg>
+              <span>Lihat Keranjang</span>
+              <span class="cart-badge-inline" id="cart-badge-inline" style="display:none">0</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap reveal delay-200">
+          <form class="contact-form" id="order-form" novalidate>
+            <div class="form-group">
+              <label for="name">Nama Lengkap <span class="required">*</span></label>
+              <input type="text" id="name" name="name" placeholder="Masukkan nama kamu" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="email@kamu.com" />
+              </div>
+              <div class="form-group">
+                <label for="phone">No. WhatsApp <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="08xxxxxxxxxx" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="product">Produk yang Diminati <span class="required">*</span></label>
+              <select id="product" name="product" required>
+                <option value="">Pilih produk...</option>
+                <option value="void-wear">COSMIC VOID — Rp 119.000</option>
+                <option value="custom">Custom Order</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="size">Ukuran</label>
+                <select id="size" name="size">
+                  <option value="">Pilih...</option>
+                  <option value="M">M</option>
+                  <option value="L">L</option>
+                  <option value="XL">XL</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="qty">Jumlah</label>
+                <input type="number" id="qty" name="qty" placeholder="1" min="1" value="1" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address">Alamat Pengiriman <span class="required">*</span></label>
+              <textarea id="address" name="address" rows="3" placeholder="Masukkan alamat lengkap..."
+                required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="notes">Catatan Tambahan</label>
+              <textarea id="notes" name="notes" rows="2" placeholder="Ada permintaan khusus?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+              </svg>
+              <span>Kirim Pesanan</span>
+            </button>
+            <p class="form-note">* Tim kami akan menghubungi kamu via WhatsApp untuk konfirmasi pesanan.</p>
+          </form>
+          <div class="form-success" id="form-success" style="display:none;">
+            <div class="success-icon">✓</div>
+            <h3>Pesanan Diterima!</h3>
+            <p>Tim kami akan segera menghubungi kamu via WhatsApp dalam 1×24 jam. Terima kasih!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="#hero" class="footer-logo"><img src="logo rnvn vector.png" alt="RNVN" /><span>RNVN</span></a>
+            <p class="footer-tagline"><br />Premium streetwear untuk jiwa yang berani.</p>
+            <div class="footer-socials">
+              <a href="https://instagram.com/rnvn.official" target="_blank" class="social-link"
+                aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg></a>
+              <a href="https://tiktok.com/@rnvn.official" target="_blank" class="social-link" aria-label="TikTok"><svg
+                  viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.32a8.16 8.16 0 004.77 1.52V7.39a4.85 4.85 0 01-1-.7z" />
+                </svg></a>
+              <a href="https://wa.me/6281234567890" target="_blank" class="social-link" aria-label="WhatsApp"><svg
+                  viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg></a>
+            </div>
+          </div>
+          <div class="footer-links-col">
+            <h4>Navigation</h4>
+            <ul>
+              <li><a href="#hero">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#collection">Collection</a></li>
+              <li><a href="#testimonials">Reviews</a></li>
+              <li><a href="#contact">Kontak</a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4>Info</h4>
+            <ul>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#collection">Size Guide</a></li>
+              <li><a href="#contact">Custom Order</a></li>
+              <li><a href="mailto:rnvnofficial@gmail.com">Email</a></li>
+            </ul>
+          </div>
+          <div class="footer-newsletter">
+            <h4>Newsletter</h4>
+            <p>Subscribe untuk info drop terbaru dan penawaran eksklusif!</p>
+            <form class="newsletter-form" id="newsletter-form">
+              <input type="email" placeholder="Email kamu..." required id="newsletter-email" />
+              <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg></button>
+            </form>
+            <p class="newsletter-note" id="newsletter-msg"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-inner">
+          <p>© 2026 RNVN Official. All Rights Reserved.</p>
+          <p class="footer-made">Made with in Indonesia</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
